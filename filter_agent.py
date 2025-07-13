@@ -10,15 +10,15 @@ def filter_relevant_jobs(jobs, user_pref):
 
     prompt = f"""
     You are a job assistant. The user is looking for jobs with preferences: {user_pref}.
-    From the following list, pick only the most relevant 5 jobs and summarize them.
+    From the following list, pick only the most relevant all jobs and summarize them. 
 
     {job_text}
     """
 
     response = openai.ChatCompletion.create(
-        model="gpt-4",
+        model="o4-mini",
         messages=[{"role": "user", "content": prompt}],
-        temperature=0.3
+        temperature=1
     )
 
     return response['choices'][0]['message']['content']
