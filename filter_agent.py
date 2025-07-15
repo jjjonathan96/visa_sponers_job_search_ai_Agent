@@ -11,7 +11,7 @@ def filter_relevant_jobs(jobs, user_pref):
     prompt = f"""
     You are a job assistant. The user is looking for jobs with preferences: {user_pref}.
     From the following list, pick only the most relevant all jobs and summarize them. 
-    work experience 0 to 2 years. 
+    work experience 0 to 2 years. okay with graduate visa
     give job link to connect
 
     {job_text}

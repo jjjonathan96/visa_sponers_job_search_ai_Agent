@@ -21,13 +21,11 @@ elif page == "🔍 Job Search":
     job_data = []
 
     if st.button("Scrape Jobs"):
-        pressed = True
+        
         value = 0
-        while pressed:
-            for page_num in range(value, 100):
-                
-
-                linked_dict = {
+    
+        for page_num in range(value, 2):
+            linked_dict = {
                     'nhs':'',
                     'adzuna':f'https://www.adzuna.co.uk/jobs/search?loc=86383&st=45000&q=Machine%20Learning%20Engineer&p={page_num}', 
                     'dwp':'', 
@@ -37,24 +35,20 @@ elif page == "🔍 Job Search":
                     'glass door':''
                 }
 
-                url = linked_dict[selected_page]
-                st.write(f"Scraping: {url}")
-                with st.spinner("Scraping jobs..."):
-                    jobs = scrape_jobs(url, keyword)
-                    if jobs:
-                        with st.spinner("Filtering best matches using OpenAI..."):
-                            for i in range(0,len(jobs), 5):
-                                filtered = filter_relevant_jobs(jobs[i:i+5], user_pref)
-                                filter.append(filtered)
-                            st.subheader("🎯 Top AI-filtered Jobs")
-                            st.markdown(filter)
-                break
-            pressed = False
-            while not pressed:
-                pressed = st.button("Next Page")
-                if pressed:
-                    value += 1
-                    break
+            url = linked_dict[selected_page]
+            st.write(f"Scraping: {url}")
+            with st.spinner("Scraping jobs..."):
+                jobs = scrape_jobs(url, keyword)
+                print('len jobs', len(jobs))
+            if jobs:
+                st.subheader("🎯 Top AI-filtered Jobs")
+                with st.spinner("Filtering best matches using OpenAI..."):
+                    for i in range(0,len(jobs), 5):
+                        print('i', i)
+                        filtered = filter_relevant_jobs(jobs[i:i+5], user_pref)
+                        filter.append(filtered)
+                        
+                        st.markdown(filtered)
                 
 
 # ---------------- CV Tailoring Page ----------------
